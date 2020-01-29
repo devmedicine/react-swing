@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Todos from "./Todos";
+import StateTest from "./StateTest";
 
 class App extends Component {
   constructor() {
@@ -54,6 +55,7 @@ class App extends Component {
           onChange={this.handleDescriptionChange}
         ></input>
         <button onClick={this.add}>addTodo</button>
+        <StateTest />
       </div>
     );
   }
