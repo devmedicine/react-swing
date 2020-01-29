@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Todos from "./Todos";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data: [],
+      id: 0,
+      title: "",
+      description: ""
+    };
+
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.add = this.add.bind(this);
+  }
+
+  add() {
+    let d = this.state.data;
+    let id = this.state.id;
+    d.push({
+      id: id++,
+      title: this.state.title,
+      description: this.state.description
+    });
+    this.setState({ data: d, id: id, title: "", description: "" });
+  }
+
+  handleTitleChange(e) {
+    this.setState({ title: e.target.value });
+  }
+
+  handleDescriptionChange(e) {
+    this.setState({ description: e.target.value });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>TodoList</h1>
+        <Todos data={this.state.data} />
+        <label>Title</label>
+        <input
+          type="text"
+          value={this.state.title}
+          onChange={this.handleTitleChange}
+        ></input>
+        <label>Description</label>
+        <input
+          type="text"
+          value={this.state.description}
+          onChange={this.handleDescriptionChange}
+        ></input>
+        <button onClick={this.add}>addTodo</button>
+      </div>
+    );
+  }
 }
 
 export default App;
